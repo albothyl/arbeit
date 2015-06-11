@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>dataSource - develop</comment>
+    <!-- mysql parttimejob connect parameter -->
+    <entry key="arbeit.mysql.jdbc.url">jdbc:mysql://127.0.0.1:3306/arbeit?useUnicode=true&amp;characterEncoding=UTF8
+    </entry>
+    <entry key="arbeit.mysql.jdbc.username">wowman</entry>
+    <entry key="arbeit.mysql.jdbc.password">1q2w3e!</entry>
+
+    <!-- hibernate parameter -->
+    <entry key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</entry>
+    <entry key="hibernate.show_sql">true</entry>
+    <entry key="entitymanager.packages.to.scan">com.job</entry>
+</properties>
