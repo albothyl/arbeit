@@ -8,6 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class HealthCheck {
 	@RequestMapping("/hello")
 	public ModelAndView healthCheck() {
-		return new ModelAndView("healthCheck.jsp");
+		return new ModelAndView("healthCheck");
 	}
 }
