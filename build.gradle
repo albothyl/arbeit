@@ -16,11 +16,13 @@ apply plugin: 'war'
 apply plugin: 'spring-boot'
 apply plugin: 'org.flywaydb.flyway'
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 version = '1.0'
 
 jar {
     baseName = 'gs-accessing-data-jpa'
+    baseName = 'gs-securing-web'
     version =  '0.1.0'
 }
 
