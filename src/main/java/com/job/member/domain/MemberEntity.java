@@ -31,6 +31,7 @@ public class MemberEntity {
 	private String name;
 	private String nickName;
 	@Enumerated(EnumType.STRING)
+	@Column(name = "GRADE")
 	private MemberGrade memberGrade;
 	@LastModifiedDate
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
