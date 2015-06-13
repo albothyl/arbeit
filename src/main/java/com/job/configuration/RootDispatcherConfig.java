@@ -22,7 +22,7 @@ public class RootDispatcherConfig extends WebMvcConfigurerAdapter {
     public ViewResolver configureViewResolver() {
         InternalResourceViewResolver viewResolve = new InternalResourceViewResolver();
         viewResolve.setPrefix("/WEB-INF/views/");
-        viewResolve.setSuffix(".jsp");
+        viewResolve.setSuffix(".html");
 
         return viewResolve;
     }
