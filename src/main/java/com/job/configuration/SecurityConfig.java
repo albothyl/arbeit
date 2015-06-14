@@ -1,4 +1,4 @@
-package com.job.member.security.configuration;
+package com.job.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,9 +11,9 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.job.member.security.handler.LoginFailureHandler;
-import com.job.member.security.handler.LoginProcessManager;
+import com.job.member.security.LoginProcessManager;
 import com.job.member.security.handler.LoginSuccessHandler;
-import com.job.member.security.provider.CustomAuthenticationProvider;
+import com.job.member.security.CustomAuthenticationProvider;
 
 @Configuration
 @EnableWebMvcSecurity

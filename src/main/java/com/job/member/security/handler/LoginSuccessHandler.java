@@ -11,8 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.job.member.security.userdetails.CustomUserDetails;
-import com.job.member.security.userdetails.UserDetailsVO;
+import com.job.member.security.SecurityUser;
 
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	@Override
@@ -20,8 +19,8 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		if ("application/json".equals(request.getHeader("Content-Type"))) {
 			ObjectMapper mapper = new ObjectMapper();
 			BaseResponse baseResponse = new BaseResponse();
-			CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
-			UserDetailsVO user = (UserDetailsVO)principal.getUserVO();
+			SecurityUser principal = (SecurityUser) authentication.getPrincipal();
+			UserLoginVO user = (UserLoginVO)principal.getUserVO();
 			baseResponse.setData(user);
 			baseResponse.setResponseOK();
 			response.setCharacterEncoding("UTF-8");

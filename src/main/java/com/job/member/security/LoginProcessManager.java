@@ -1,4 +1,4 @@
-package com.job.member.security.handler;
+package com.job.member.security;
 
 import java.io.BufferedReader;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.job.member.security.userdetails;
+package com.job.member.security;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -7,10 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-public class CustomUserDetails extends User {
-
-	private static final long serialVersionUID = 4424979814070137320L;
-
+public class SecurityUser extends User {
 	/**
 	 * User 클래스의 생성자 Override
 	 * @param username 사용자계정
@@ -23,7 +20,7 @@ public class CustomUserDetails extends User {
 	 * @param userVO 사용자 VO객체
 	 * @throws IllegalArgumentException
 	 */
-	public CustomUserDetails(String username, String password, boolean enabled,
+	public SecurityUser(String username, String password, boolean enabled,
 		boolean accountNonExpired, boolean credentialsNonExpired,
 		boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities,
 		Object userVO) throws IllegalArgumentException {
@@ -34,7 +31,7 @@ public class CustomUserDetails extends User {
 		this.userVO = userVO;
 	}
 
-	public CustomUserDetails(String username, String password, boolean enabled,
+	public SecurityUser(String username, String password, boolean enabled,
 		Object userVO) throws IllegalArgumentException {
 
 		this(username, password, enabled, true, true, true,

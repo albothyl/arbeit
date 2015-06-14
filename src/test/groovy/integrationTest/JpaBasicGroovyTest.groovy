@@ -1,8 +1,8 @@
 package integrationTest
 
 import com.job.BootApplication
-import com.job.member.Grade
-import com.job.member.domain.Member
+import com.job.member.MemberGrade
+import com.job.member.domain.MemberEntity
 import com.job.member.domain.MemberRepository
 import org.joda.time.DateTime
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,12 +23,12 @@ class JpaBasicGroovyTest extends Specification {
 
     def "JPA INSERT, DELETE TEST"() {
         setup:
-        def Member member = new Member()
+        def MemberEntity member = new MemberEntity()
         member.setEmail("testEmail_2@test.com")
         member.setPassword("testPassword_2")
         member.setName("testName_2")
         member.setNickName("testNickName_2")
-        member.setGrade(Grade.GOLD)
+        member.setGrade(MemberGrade.GOLD)
         member.setUpdatedAt(new DateTime())
         member.setRegistedAt(new DateTime())
 
@@ -43,7 +43,7 @@ class JpaBasicGroovyTest extends Specification {
     def "select test"() {
         setup:
         def String userEmail = "jjhwqqq@naver.com"
-        def Member member = memberRepository.findByEmail(userEmail)
+        def MemberEntity member = memberRepository.findByEmail(userEmail)
         expect:
         Assert.notNull(member)
     }
