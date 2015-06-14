@@ -40,7 +40,6 @@ public class LoginProcessManager extends UsernamePasswordAuthenticationFilter {
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-
 		if ("application/json".equals(request.getHeader("Content-Type"))) {
 			try {
 				StringBuffer sb = new StringBuffer();

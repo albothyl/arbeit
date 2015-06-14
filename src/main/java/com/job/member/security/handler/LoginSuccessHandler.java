@@ -28,5 +28,4 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 			mapper.writeValue(response.getWriter(), responseWarpper);
 		}
 	}
-
 }

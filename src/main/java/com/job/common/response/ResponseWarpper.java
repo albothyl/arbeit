@@ -1,10 +1,12 @@
 package com.job.common.response;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class ResponseWarpper {
 	private String responseCode;
 	private String message;
