@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BaseResponse {
+public class ResponseWarpper {
 	private String responseCode;
 	private String message;
 	private Object data;

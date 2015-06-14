@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.job.common.response.BaseResponse;
+import com.job.common.response.ResponseWarpper;
 import com.job.member.domain.MemberEntity;
 import com.job.member.security.SecurityUser;
 
@@ -19,13 +19,13 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 		if ("application/json".equals(request.getHeader("Content-Type"))) {
 			ObjectMapper mapper = new ObjectMapper();
-			BaseResponse baseResponse = new BaseResponse();
+			ResponseWarpper responseWarpper = new ResponseWarpper();
 			SecurityUser principal = (SecurityUser) authentication.getPrincipal();
 			MemberEntity user = (MemberEntity)principal.getUserVO();
-			baseResponse.setData(user);
-			baseResponse.setResponseOK();
+			responseWarpper.setData(user);
+			responseWarpper.setResponseOK();
 			response.setCharacterEncoding("UTF-8");
-			mapper.writeValue(response.getWriter(), baseResponse);
+			mapper.writeValue(response.getWriter(), responseWarpper);
 		}
 	}
 
