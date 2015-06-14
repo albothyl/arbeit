@@ -17,23 +17,4 @@ public enum Algorithm {
 	public String stringValue() {
 		return value;
 	}
-
-	public static Algorithm valueOf(int value) {
-		switch (value) {
-			case 1:
-				return SHA0;
-			case 2:
-				return SHA1;
-			case 3:
-				return SHA224;
-			case 4:
-				return SHA256;
-			case 5:
-				return SHA384;
-			case 6:
-				return SHA512;
-			default:
-				throw new AssertionError("Unkown value: " + value);
-		}
-	}
 }

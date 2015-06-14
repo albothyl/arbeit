@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 public class SHA {
 
 	public String encryption(String inputPassword, String Algorithm) {
-		MessageDigest md;
+		MessageDigest messageDigest;
 		String savePassword = "";
 		try {
-			md = MessageDigest.getInstance(Algorithm);
-			md.update(inputPassword.getBytes());
-			byte[] mb = md.digest();
+			messageDigest = MessageDigest.getInstance(Algorithm);
+			messageDigest.update(inputPassword.getBytes());
+			byte[] mb = messageDigest.digest();
 			for (int i = 0; i < mb.length; i++) {
 				byte temp = mb[i];
 				String s = Integer.toHexString(new Byte(temp));
