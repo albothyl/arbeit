@@ -6,11 +6,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.job.common.response.BaseResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.job.common.response.BaseResponse;
+import com.job.member.domain.MemberEntity;
 import com.job.member.security.SecurityUser;
 
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -20,7 +21,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 			ObjectMapper mapper = new ObjectMapper();
 			BaseResponse baseResponse = new BaseResponse();
 			SecurityUser principal = (SecurityUser) authentication.getPrincipal();
-			UserLoginVO user = (UserLoginVO)principal.getUserVO();
+			MemberEntity user = (MemberEntity)principal.getUserVO();
 			baseResponse.setData(user);
 			baseResponse.setResponseOK();
 			response.setCharacterEncoding("UTF-8");

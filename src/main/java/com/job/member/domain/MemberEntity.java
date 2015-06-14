@@ -23,7 +23,7 @@ import javax.persistence.*;
 @Entity
 @Table(schema = "arbeit", name = "member")
 @SuppressWarnings({ "PMD.UnusedPrivateField" })
-public class MemberEntity extends User {
+public class MemberEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
