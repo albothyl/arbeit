@@ -39,4 +39,12 @@ class JpaBasicGroovyTest extends Specification {
         expect:
         memberRepository.delete(resultMemberSaved.getId())
     }
+
+    def "select test"() {
+        setup:
+        def String userEmail = "jjhwqqq@naver.com"
+        def Member member = memberRepository.findByEmail(userEmail)
+        expect:
+        Assert.notNull(member)
+    }
 }
