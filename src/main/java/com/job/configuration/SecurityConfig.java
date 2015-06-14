@@ -8,12 +8,17 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.job.member.security.handler.LoginFailureHandler;
 import com.job.member.security.LoginProcessManager;
 import com.job.member.security.handler.LoginSuccessHandler;
 import com.job.member.security.CustomAuthenticationProvider;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.regex.Pattern;
 
 @Configuration
 @EnableWebMvcSecurity
@@ -49,9 +54,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		filter.setAuthenticationManager(authenticationManagerBean());
 		filter.setAuthenticationSuccessHandler(authenticationSuccessHandler());
 		filter.setFilterProcessesUrl("/");
+		//filter.setRequiresAuthenticationRequestMatcher(new CsrfSecurityRequestMatcher());
 		filter.setAuthenticationFailureHandler(authenticationFailureHandler());
 		return filter;
 	}
+
+//	public class CsrfSecurityRequestMatcher implements RequestMatcher {
+//		private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");
+//		private RegexRequestMatcher unprotectedMatcher = new RegexRequestMatcher("/unprotected", null);
+//
+//		@Override
+//		public boolean matches(HttpServletRequest request) {
+//			if(allowedMethods.matcher(request.getMethod()).matches()){
+//				return false;
+//			}
+//
+//			return !unprotectedMatcher.matches(request);
+//		}
+//	}
 
 	@Bean
 	public LoginSuccessHandler authenticationSuccessHandler() {
