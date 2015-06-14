@@ -1,8 +1,8 @@
 package integrationTest
 
 import com.job.BootApplication
-import com.job.member.MemberGrade
-import com.job.member.domain.MemberEntity
+import com.job.member.Grade
+import com.job.member.domain.Member
 import com.job.member.domain.MemberRepository
 import org.joda.time.DateTime
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,12 +23,12 @@ class JpaBasicGroovyTest extends Specification {
 
     def "JPA INSERT, DELETE TEST"() {
         setup:
-        def MemberEntity member = new MemberEntity()
+        def Member member = new Member()
         member.setEmail("testEmail_2@test.com")
         member.setPassword("testPassword_2")
         member.setName("testName_2")
         member.setNickName("testNickName_2")
-        member.setMemberGrade(MemberGrade.GOLD)
+        member.setGrade(Grade.GOLD)
         member.setUpdatedAt(new DateTime())
         member.setRegistedAt(new DateTime())
 
@@ -40,24 +40,11 @@ class JpaBasicGroovyTest extends Specification {
         memberRepository.delete(resultMemberSaved.getId())
     }
 
-    def "email로 사용자를 검색한다."() {
+    def "select test"() {
         setup:
-        def userEmail = "jjhwqqq@naver.com";
-
-        when:
-        def MemberEntity result = memberRepository.findByEmail(userEmail);
-        then:
-        println(result.toString())
-        Assert.notNull(result);
-    }
-
-    def "email로 사용자를 검색한다.2"() {
-        setup:
-        def userId = 6L;
-
-        when:
-        def MemberEntity result = memberRepository.findOne(userId);
-        then:
-        Assert.notNull(result);
+        def String userEmail = "jjhwqqq@naver.com"
+        def Member member = memberRepository.findByEmail(userEmail)
+        expect:
+        Assert.notNull(member)
     }
 }
