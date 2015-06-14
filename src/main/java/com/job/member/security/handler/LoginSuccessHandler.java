@@ -12,7 +12,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.job.common.response.ResponseWarpper;
 import com.job.member.domain.MemberEntity;
-import com.job.member.security.SecurityUser;
+import com.job.member.security.CustomUserDetails;
 
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	@Override
@@ -20,7 +20,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		if ("application/json".equals(request.getHeader("Content-Type"))) {
 			ObjectMapper mapper = new ObjectMapper();
 			ResponseWarpper responseWarpper = new ResponseWarpper();
-			SecurityUser principal = (SecurityUser) authentication.getPrincipal();
+			CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
 			MemberEntity user = (MemberEntity)principal.getUserVO();
 			responseWarpper.setData(user);
 			responseWarpper.setResponseOK();

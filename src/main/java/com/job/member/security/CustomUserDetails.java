@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-public class SecurityUser extends User {
+public class CustomUserDetails extends User {
 	/**
 	 * User 클래스의 생성자 Override
 	 * @param username 사용자계정
@@ -20,9 +20,13 @@ public class SecurityUser extends User {
 	 * @param userVO 사용자 VO객체
 	 * @throws IllegalArgumentException
 	 */
-	public SecurityUser(String username, String password, boolean enabled,
-		boolean accountNonExpired, boolean credentialsNonExpired,
-		boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities,
+	public CustomUserDetails(String username,
+		String password,
+		boolean enabled,
+		boolean accountNonExpired,
+		boolean credentialsNonExpired,
+		boolean accountNonLocked,
+		Collection<? extends GrantedAuthority> authorities,
 		Object userVO) throws IllegalArgumentException {
 
 		super(username, password, enabled, accountNonExpired,
@@ -31,7 +35,9 @@ public class SecurityUser extends User {
 		this.userVO = userVO;
 	}
 
-	public SecurityUser(String username, String password, boolean enabled,
+	public CustomUserDetails(String username,
+		String password,
+		boolean enabled,
 		Object userVO) throws IllegalArgumentException {
 
 		this(username, password, enabled, true, true, true,

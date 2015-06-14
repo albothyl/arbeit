@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/Member")
+@RequestMapping("/member")
 public class MemberAccessController {
 
-    @RequestMapping("/login/form")
+    @RequestMapping("/loginForm")
     public ModelAndView Login() {
         return new ModelAndView("/member/loginForm");
     }

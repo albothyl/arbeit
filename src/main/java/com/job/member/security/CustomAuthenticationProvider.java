@@ -43,7 +43,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		Collection<? extends GrantedAuthority> authorities =
 			Arrays.asList(new GrantedAuthority[] { new SimpleGrantedAuthority(roleId) });
 
-		User user = new SecurityUser(userEmail, password, enabled, true, true, true, authorities, memberEntity);
+		User user = new CustomUserDetails(userEmail, password, enabled, true, true, true, authorities, memberEntity);
 
 		return new UsernamePasswordAuthenticationToken(user, password, authorities);
 	}
