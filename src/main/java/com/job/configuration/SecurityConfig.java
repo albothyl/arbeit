@@ -35,8 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder builder) throws Exception {
 		builder
-			.userDetailsService(authenticationService).passwordEncoder(new ShaPasswordEncoder(256))
-			.and().eraseCredentials(true);
+			.userDetailsService(authenticationService)
+				.passwordEncoder(new ShaPasswordEncoder(256))
+			.and()
+				.eraseCredentials(true);
 	}
 
 	@Override
@@ -48,23 +50,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity security) throws Exception {
 		security
 			.authorizeRequests()
-			.antMatchers("/session/list")
-			.hasAuthority("VIEW_USER_SESSIONS")
-			.anyRequest().authenticated()
+				.antMatchers("/session/list")
+				.hasAuthority("VIEW_USER_SESSIONS")
+				.anyRequest().authenticated()
 			.and().formLogin()
-			.loginPage("/member/loginForm").failureUrl("/login?loginFailed")
-			.defaultSuccessUrl("/hello")
-			.usernameParameter("username")
-			.passwordParameter("password")
-			.permitAll()
+				.loginPage("/member/loginForm").failureUrl("/login?loginFailed")
+				.defaultSuccessUrl("/hello")
+				.usernameParameter("username")
+				.passwordParameter("password")
+				.permitAll()
 			.and().logout()
-			.logoutUrl("/logout").logoutSuccessUrl("/login?loggedOut")
-			.invalidateHttpSession(true).deleteCookies("JSESSIONID")
-			.permitAll()
+				.logoutUrl("/logout").logoutSuccessUrl("/login?loggedOut")
+				.invalidateHttpSession(true).deleteCookies("JSESSIONID")
+				.permitAll()
 			.and().sessionManagement()
-			.sessionFixation().changeSessionId()
-			.maximumSessions(1).maxSessionsPreventsLogin(true)
-			.sessionRegistry(this.sessionRegistryImpl())
-			.and().and().csrf().disable();
+				.sessionFixation().changeSessionId()
+				.maximumSessions(1).maxSessionsPreventsLogin(true)
+				.sessionRegistry(this.sessionRegistryImpl())
+			.and().and().csrf()
+				.disable();
 	}
 }
