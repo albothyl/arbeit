@@ -1,65 +1,63 @@
 package com.job.configuration;
 
+import com.job.member.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
-import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 
-public class SecurityConfig {
+@Configuration
+@EnableWebMvcSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	@Autowired
+	AuthenticationService authenticationService;
 
-	@Configuration
-	@EnableWebMvcSecurity
-	public static class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-		@Autowired
-		public void configureGlobal(AuthenticationManagerBuilder builder) throws Exception {
-			builder
-				.inMemoryAuthentication()
-				.withUser("user")
-				.password("password")
-				.roles("USER");
-		}
-
-		@Override
-		protected void configure(HttpSecurity http) throws Exception {
-			http
-				.authorizeRequests()
-					.antMatchers("/", "/hello", "/home").permitAll()
-					.anyRequest().authenticated()
-				.and().formLogin()
-					.loginPage("/login")
-					.defaultSuccessUrl("/hello")
-					.usernameParameter("username")
-					.passwordParameter("password")
-					.permitAll()
-				.and()
-					.logout().invalidateHttpSession(true).permitAll()
-				.and()
-					.csrf().disable();
-
-			CharacterEncodingFilter filter = new CharacterEncodingFilter();
-			filter.setEncoding("UTF-8");
-			filter.setForceEncoding(true);
-			http.addFilterBefore(filter,CsrfFilter.class);
-		}
-
+	@Bean
+	protected SessionRegistry sessionRegistryImpl() {
+		return new SessionRegistryImpl();
 	}
 
-	@Configuration
-	public static class MvcConfig extends WebMvcConfigurerAdapter {
-		@Override
-		public void addViewControllers(ViewControllerRegistry registry) {
-			registry.addViewController("/hello").setViewName("/healthCheck");
-			registry.addViewController("/").setViewName("/healthCheck");
-			registry.addViewController("/main").setViewName("/member/loginComplete");
-			registry.addViewController("/login").setViewName("/member/loginForm");
-		}
+	@Override
+	protected void configure(AuthenticationManagerBuilder builder) {
+		builder.authenticationProvider(this.authenticationService);
+	}
 
+	@Override
+	public void configure(WebSecurity security) {
+		security.ignoring().antMatchers("/resource/**", "/favicon.ico");
+	}
+
+	@Override
+	protected void configure(HttpSecurity security) throws Exception {
+		security
+			.authorizeRequests()
+			.anyRequest().authenticated()
+			.and().formLogin()
+				.loginPage("/login").failureUrl("/login?loginFailed")
+				.defaultSuccessUrl("/hello")
+				.usernameParameter("username")
+				.passwordParameter("password")
+				.permitAll()
+			.and().logout()
+				.logoutUrl("/logout").logoutSuccessUrl("/login?loggedOut")
+				.invalidateHttpSession(true).deleteCookies("JSESSIONID")
+				.permitAll()
+			.and().sessionManagement()
+				.sessionFixation().changeSessionId()
+				.maximumSessions(1).maxSessionsPreventsLogin(true)
+				.sessionRegistry(this.sessionRegistryImpl())
+			.and().and().csrf()
+				.requireCsrfProtectionMatcher((r) -> {
+					String m = r.getMethod();
+					return !r.getServletPath().startsWith("/services/") &&
+						("POST".equals(m) || "PUT".equals(m) ||
+							"DELETE".equals(m) || "PATCH".equals(m));
+				});
 	}
 }
