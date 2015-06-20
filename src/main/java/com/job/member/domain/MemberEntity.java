@@ -9,6 +9,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
 
@@ -33,6 +34,7 @@ public class MemberEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "GRADE")
 	private MemberGrade memberGrade;
+	private String roleId;
 	@LastModifiedDate
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime updatedAt;

@@ -28,7 +28,7 @@ class JpaBasicGroovyTest extends Specification {
         member.setPassword("testPassword_2")
         member.setName("testName_2")
         member.setNickName("testNickName_2")
-        member.setMemberGrade(MemberGrade.GOLD)
+        member.setGrade(MemberGrade.GOLD)
         member.setUpdatedAt(new DateTime())
         member.setRegistedAt(new DateTime())
 
@@ -38,5 +38,13 @@ class JpaBasicGroovyTest extends Specification {
         Assert.notNull(resultMemberSaved)
         expect:
         memberRepository.delete(resultMemberSaved.getId())
+    }
+
+    def "select test"() {
+        setup:
+        def String userEmail = "jjhwqqq@naver.com"
+        def MemberEntity member = memberRepository.findByEmail(userEmail)
+        expect:
+        Assert.notNull(member)
     }
 }
