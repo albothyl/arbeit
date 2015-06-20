@@ -21,8 +21,8 @@ class encryptionTest extends Specification {
 
 	def "SHA256 encryptionTest"() {
 		setup:
-		def String password = "testPassword"
-		def String afterPassword = "fd5cb51bafd60f6fdbedde6e62c473da6f247db271633e15919bab78a02ee9eb"
+		def String password = "1q2w3e"
+		def String afterPassword = "c0c4a69b17a7955ac230bfc8db4a123eaa956ccf3c0022e68b8d4e2f5b699d1f"
 		def String encryptionPassword = sha.encryption(password, Algorithm.SHA256.stringValue())
 		expect:
 		Assert.isTrue(afterPassword.equals(encryptionPassword))

@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 @EnableWebMvcSecurity
@@ -59,5 +61,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						("POST".equals(m) || "PUT".equals(m) ||
 							"DELETE".equals(m) || "PATCH".equals(m));
 				});
+	}
+
+	@Configuration
+	public static class MvcConfig extends WebMvcConfigurerAdapter {
+		@Override
+		public void addViewControllers(ViewControllerRegistry registry) {
+			registry.addViewController("/hello").setViewName("/healthCheck");
+			registry.addViewController("/").setViewName("/healthCheck");
+			registry.addViewController("/main").setViewName("/member/loginComplete");
+			registry.addViewController("/login").setViewName("/member/loginForm");
+		}
+
 	}
 }
