@@ -5,15 +5,16 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.validation.annotation.Validated;
 
 import com.job.member.domain.MemberEntity;
 
 @Validated
-public interface AuthenticationService extends AuthenticationProvider
+public interface AuthenticationService extends UserDetailsService
 {
 	@Override
-	MemberEntity authenticate(Authentication authentication);
+	MemberEntity loadUserByUsername(String username);
 
 	void saveUser(
 		@NotNull(message = "{validate.authenticate.saveUser}") @Valid MemberEntity principal,

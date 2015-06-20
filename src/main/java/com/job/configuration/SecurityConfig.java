@@ -1,9 +1,10 @@
 package com.job.configuration;
 
-import com.job.member.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -11,8 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import com.job.member.service.AuthenticationService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebMvcSecurity
@@ -25,9 +27,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new SessionRegistryImpl();
 	}
 
+	@Bean
 	@Override
-	protected void configure(AuthenticationManagerBuilder builder) {
-		builder.authenticationProvider(this.authenticationService);
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder builder) throws Exception {
+		builder
+			.userDetailsService(authenticationService)
+				.passwordEncoder(new ShaPasswordEncoder(256))
+			.and()
+			.eraseCredentials(true);
 	}
 
 	@Override
@@ -39,9 +51,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity security) throws Exception {
 		security
 			.authorizeRequests()
-			.anyRequest().authenticated()
+				.antMatchers("/session/list")
+					.hasAuthority("VIEW_USER_SESSIONS")
+				.anyRequest().authenticated()
 			.and().formLogin()
-				.loginPage("/login").failureUrl("/login?loginFailed")
+				.loginPage("/member/loginForm").failureUrl("/login?loginFailed")
 				.defaultSuccessUrl("/hello")
 				.usernameParameter("username")
 				.passwordParameter("password")
@@ -54,24 +68,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.sessionFixation().changeSessionId()
 				.maximumSessions(1).maxSessionsPreventsLogin(true)
 				.sessionRegistry(this.sessionRegistryImpl())
-			.and().and().csrf()
-				.requireCsrfProtectionMatcher((r) -> {
-					String m = r.getMethod();
-					return !r.getServletPath().startsWith("/services/") &&
-						("POST".equals(m) || "PUT".equals(m) ||
-							"DELETE".equals(m) || "PATCH".equals(m));
-				});
-	}
+			.and().and().csrf().disable();
+//			.requireCsrfProtectionMatcher((r) -> {
+//				String m = r.getMethod();
+//				return !r.getServletPath().startsWith("/services/") &&
+//					("POST".equals(m) || "PUT".equals(m) ||
+//						"DELETE".equals(m) || "PATCH".equals(m));
+//			});
 
-	@Configuration
-	public static class MvcConfig extends WebMvcConfigurerAdapter {
-		@Override
-		public void addViewControllers(ViewControllerRegistry registry) {
-			registry.addViewController("/hello").setViewName("/healthCheck");
-			registry.addViewController("/").setViewName("/healthCheck");
-			registry.addViewController("/main").setViewName("/member/loginComplete");
-			registry.addViewController("/login").setViewName("/member/loginForm");
-		}
 
+
+		/*security
+			.authorizeRequests()
+			.anyRequest().authenticated()
+			.and().formLogin()
+				.loginPage("/member/loginForm").failureUrl("/login?loginFailed")
+				.defaultSuccessUrl("/hello")
+				.usernameParameter("username")
+				.passwordParameter("password")
+				.permitAll()
+			.and().logout()
+				.logoutUrl("/logout").logoutSuccessUrl("/login?loggedOut")
+				.invalidateHttpSession(true).deleteCookies("JSESSIONID")
+				.permitAll()
+			.and().sessionManagement()
+				.sessionFixation().changeSessionId()
+				.maximumSessions(1).maxSessionsPreventsLogin(true)
+				.sessionRegistry(this.sessionRegistryImpl())
+			.and().and().csrf().disable();*/
+//			.and().and().csrf()
+//				.requireCsrfProtectionMatcher((r) -> {
+//					String m = r.getMethod();
+//					return !r.getServletPath().startsWith("/services/") &&
+//						("POST".equals(m) || "PUT".equals(m) ||
+//							"DELETE".equals(m) || "PATCH".equals(m));
+//				});
 	}
 }

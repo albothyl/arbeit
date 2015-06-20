@@ -18,6 +18,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import com.google.common.collect.Lists;
 import com.job.member.MemberGrade;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * Created by Administrator on 2015-05-31.
@@ -29,7 +30,7 @@ import com.job.member.MemberGrade;
 @Entity
 @Table(schema = "arbeit", name = "member")
 @SuppressWarnings({ "PMD.UnusedPrivateField" })
-public class MemberEntity implements Authentication {
+public class MemberEntity implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -53,28 +54,23 @@ public class MemberEntity implements Authentication {
 		return Lists.newArrayList();
 	}
 
-	@Override
-	public Object getCredentials() {
-		return password;
+	@Override public String getUsername() {
+		return email;
 	}
 
-	@Override
-	public Object getDetails() {
-		return id;
+	@Override public boolean isAccountNonExpired() {
+		return true;
 	}
 
-	@Override
-	public Object getPrincipal() {
-		return id;
+	@Override public boolean isAccountNonLocked() {
+		return true;
 	}
 
-	@Override
-	public boolean isAuthenticated() {
-		return  true;
+	@Override public boolean isCredentialsNonExpired() {
+		return true;
 	}
 
-	@Override
-	public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-
+	@Override public boolean isEnabled() {
+		return true;
 	}
 }

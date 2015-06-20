@@ -3,6 +3,27 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Spring Security Example </title>
+
+    <script type="text/javascript" lang="javascript">
+        var postInvisibleForm = function(url, fields) {
+            var form = $('<form id="mapForm" method="post"></form>')
+                    .attr({ action: url, style: 'display: none;' });
+            for(var key in fields) {
+                if(fields.hasOwnProperty(key))
+                    form.append($('<input type="hidden">').attr({
+                        name: key, value: fields[key]
+                    }));
+            }
+            form.append($('<input type="hidden">').attr({
+                name: '${_csrf.parameterName}', value: '${_csrf.token}'
+            }));
+            $('body').append(form);
+            form.submit();
+        };
+        var newChat = function() {
+            postInvisibleForm('<c:url value="/chat/new" />', { });
+        };
+    </script>
 </head>
 <body>
     <div th:if="${param.error}">
