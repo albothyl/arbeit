@@ -19,9 +19,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.google.common.collect.Lists;
 import com.job.member.MemberGrade;
 
-/**
- * Created by Administrator on 2015-05-31.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

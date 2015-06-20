@@ -6,10 +6,10 @@ import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.dao.SaltSource;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.job.common.util.encryption.Algorithm;
-import com.job.common.util.encryption.SHA;
 import com.job.member.domain.MemberEntity;
 import com.job.member.domain.MemberRepository;
 
@@ -18,7 +18,7 @@ import com.job.member.domain.MemberRepository;
 public class DefaultAuthenticationService implements AuthenticationService {
 
 	@Autowired
-	private SHA sha;
+	SaltSource saltSource;
 
 	@Autowired
 	MemberRepository memberRepository;
@@ -34,11 +34,8 @@ public class DefaultAuthenticationService implements AuthenticationService {
 	@Override
 	public void saveUser(@NotNull(message = "{validate.authenticate.saveUser}") @Valid MemberEntity memberEntity, String newPassword) {
 		if (newPassword != null && newPassword.length() > 0) {
-			//			ShaPasswordEncoder shaPasswordEncoder = new ShaPasswordEncoder(256);
-			//			shaPasswordEncoder.encodePassword(newPassword);
-
-			String encrypedPassword = sha.encryption(newPassword, Algorithm.SHA256.stringValue());
-			memberEntity.setPassword(encrypedPassword);
+			ShaPasswordEncoder shaPasswordEncoder = new ShaPasswordEncoder(256);
+			shaPasswordEncoder.encodePassword(newPassword, saltSource);
 		}
 		this.memberRepository.save(memberEntity);
 	}
