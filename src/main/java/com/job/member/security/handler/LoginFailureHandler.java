@@ -14,7 +14,8 @@ import com.job.common.response.ResponseWarpper;
 
 public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 	@Override
-	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException auth) throws IOException, ServletException {
+	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException auth) throws IOException,
+		ServletException {
 		ObjectMapper mapper = new ObjectMapper();
 		if ("application/json".equals(request.getHeader("Content-Type"))) {
 			ResponseWarpper responseWarpper = new ResponseWarpper();

@@ -3,8 +3,6 @@ package com.job.member.service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.validation.annotation.Validated;
 

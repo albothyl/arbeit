@@ -8,8 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/member")
 public class MemberAccessController {
 
-    @RequestMapping("/loginForm")
-    public ModelAndView Login() {
-        return new ModelAndView("/member/loginForm");
-    }
+	@RequestMapping("/loginForm")
+	public ModelAndView Login() {
+		return new ModelAndView("/member/loginForm");
+	}
 }
