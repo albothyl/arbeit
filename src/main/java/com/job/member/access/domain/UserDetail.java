@@ -1,4 +1,4 @@
-package com.job.member.access;
+package com.job.member.access.domain;
 
 import java.util.Arrays;
 import java.util.Collection;

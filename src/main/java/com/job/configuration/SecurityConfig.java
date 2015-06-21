@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 
-import com.job.member.service.AuthenticationService;
+import com.job.member.access.service.AuthenticationService;
 
 @Configuration
 @EnableWebMvcSecurity
