@@ -1,10 +1,9 @@
-package com.job.member.access.domain;
+package com.job.common.springSecurity.domain;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;

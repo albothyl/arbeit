@@ -1,4 +1,4 @@
-package com.job.member.access.service;
+package com.job.common.springSecurity.service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -9,8 +9,8 @@ import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.job.member.access.domain.UserDetail;
-import com.job.member.access.domain.UserDetailRepository;
+import com.job.common.springSecurity.domain.UserDetail;
+import com.job.common.springSecurity.domain.UserDetailRepository;
 
 @Service
 public class DefaultAuthenticationService implements AuthenticationService {

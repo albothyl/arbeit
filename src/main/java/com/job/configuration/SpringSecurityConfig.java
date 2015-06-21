@@ -13,11 +13,11 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 
-import com.job.member.access.service.AuthenticationService;
+import com.job.common.springSecurity.service.AuthenticationService;
 
 @Configuration
 @EnableWebMvcSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	AuthenticationService authenticationService;
 
@@ -50,9 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity security) throws Exception {
 		security
 			.authorizeRequests()
-				.antMatchers("/session/list")
-				.hasAuthority("VIEW_USER_SESSIONS")
-				.anyRequest().authenticated()
+				.antMatchers("/hello/**").anonymous().anyRequest().authenticated()
+				.antMatchers("/session/list").hasAuthority("VIEW_USER_SESSIONS").anyRequest().authenticated() //세션에 있는건 권한체크없이 바로 통과인데..나중에 좀 살펴볼것.
+				.antMatchers(actuatorAdminEndpoints()).access("hasRole('ADMIN')")
+				.antMatchers(actuatorUserAdminEndpoints()).access("hasRole('USER')")
 			.and().formLogin()
 				.loginPage("/member/loginForm").failureUrl("/login?loginFailed")
 				.defaultSuccessUrl("/hello")
@@ -69,5 +70,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.sessionRegistry(this.sessionRegistryImpl())
 			.and().and().csrf()
 				.disable();
+	}
+
+	private String[] actuatorAdminEndpoints() {
+		return new String[]{"/admin/**"};
+	}
+
+	private String[] actuatorUserAdminEndpoints() {
+		return new String[]{"/arbeit/**"};
 	}
 }
