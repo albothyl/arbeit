@@ -1,16 +1,16 @@
 USE arbeit;
 
 CREATE TABLE `arbeit`.`user` (
-  `email` VARCHAR(70) NOT NULL COMMENT 'login½Ã id·Î »ç¿ëÇÒ',
-  `password` VARCHAR(70) NOT NULL,
-  `authority` VARCHAR(100) NULL DEFAULT 'USER' COMMENT 'userÀÇ ±ÇÇÑÀ¸·Î ´ÙÁß±ÇÇÑÀÏ °æ¿ì \" , \"À¸·Î concatÇÑ ÇÏ³ªÀÇ ¹®ÀÚ¿­·Î ÀúÀåÇÏ°í, »ç¿ë½Ã ÀÌ¸¦ ÆÄ½ÌÇÏ¿© »ç¿ëÇÑ´Ù.',
-  `accountNonExpired` TINYINT(1) NULL DEFAULT 1 COMMENT 'È¸¿ø ¸¸·á¿©ºÎ',
-  `accountNonLocked` TINYINT(1) NULL DEFAULT 1 COMMENT 'È¸¿ø Àá±è¿©ºÎ',
-  `credentialsNonExpired` TINYINT(1) NULL DEFAULT 1 COMMENT 'password ¸¸·á¿©ºÎ',
-  `enabled` TINYINT(1) NULL DEFAULT 1 COMMENT '°èÁ¤ »ç¿ë¿©ºÎ',
-  `memberId` BIGINT(20) NOT NULL COMMENT 'memberÅ×ÀÌºí°ú Á¶ÀÎÇÏ±â À§ÇÑ ¿Ü·¡Å°',
-  `updatedAt` DATETIME NULL DEFAULT NOW() COMMENT 'ÃÖÁ¾ ¼öÁ¤ÀÏ½Ã',
-  `createdAt` DATETIME NULL DEFAULT NOW() COMMENT 'ÃÖÃÊ »ý¼ºÀÏ½Ã',
+  `email` VARCHAR(70) NOT NULL COMMENT 'ì‚¬ìš©ìž username',
+  `password` VARCHAR(70) NOT NULL COMMENT 'ì‚¬ìš©ìž password',
+  `authority` VARCHAR(100) NULL DEFAULT 'USER' COMMENT 'ì‚¬ìš©ìž ê¶Œí•œ',
+  `accountNonExpired` TINYINT(1) NULL DEFAULT 1 COMMENT 'ì‚¬ìš©ìž ë§Œë£Œì—¬ë¶€',
+  `accountNonLocked` TINYINT(1) NULL DEFAULT 1 COMMENT 'ì‚¬ìš©ìž ë¸”ëŸ­ì—¬ë¶€',
+  `credentialsNonExpired` TINYINT(1) NULL DEFAULT 1 COMMENT 'ì‚¬ìš©ìž ì¸ì¦ì—¬ë¶€',
+  `enabled` TINYINT(1) NULL DEFAULT 1 COMMENT 'ì‚¬ìš©ìž ì‚¬ìš©ì—¬ë¶€',
+  `memberId` BIGINT(20) NOT NULL COMMENT 'íšŒì›í…Œì´ë¸”ê³¼ ì¡°ì¸í•˜ê¸°ìœ„í•œ ì™¸ëž˜í‚¤',
+  `updatedAt` DATETIME NULL DEFAULT NOW() COMMENT 'ìµœì¢…ìˆ˜ì • ì¼ì‹œ',
+  `createdAt` DATETIME NULL DEFAULT NOW() COMMENT 'ìµœì´ˆìƒì„± ì¼ì‹œ',
   PRIMARY KEY (`email`),
   UNIQUE KEY `memberId_UNIQUE` (`memberId`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT = 'spring securityÀÇ login, logout°úÁ¤¿¡¼­ »ç¿ëÇÒ »ç¿ëÀÚ µ¥ÀÌÅÍ¸¦ °ü¸®ÇÏ´Â Å×ÀÌºí';
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT = 'spring securityì—ì„œ ì‚¬ìš©í•˜ëŠ” ì‚¬ìš©ìžì •ë³´ê´€ë¦¬ í…Œì´ë¸”';
