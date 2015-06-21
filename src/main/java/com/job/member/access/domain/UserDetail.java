@@ -14,7 +14,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -31,8 +34,7 @@ import com.google.common.collect.FluentIterable;
 public class UserDetail implements UserDetails {
 
 	@Id
-	@Column(name = "email")
-	private String userName;
+	private String email;
 	private String password;
 	private String authority;
 	private boolean accountNonExpired;
@@ -40,7 +42,11 @@ public class UserDetail implements UserDetails {
 	private boolean credentialsNonExpired;
 	private boolean enabled;
 	private Long memberId;
+	@LastModifiedDate
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime updatedAt;
+	@CreatedDate
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime createdAt;
 
 	@Override
@@ -50,7 +56,7 @@ public class UserDetail implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return userName;
+		return email;
 	}
 
 	@Override

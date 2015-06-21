@@ -4,7 +4,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.dao.SaltSource;
+import org.springframework.security.authentication.dao.ReflectionSaltSource;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -14,9 +14,6 @@ import com.job.member.access.domain.UserDetailRepository;
 
 @Service
 public class DefaultAuthenticationService implements AuthenticationService {
-
-	@Autowired
-	SaltSource saltSource;
 
 	@Autowired
 	UserDetailRepository userDetailRepository;
@@ -33,7 +30,7 @@ public class DefaultAuthenticationService implements AuthenticationService {
 	public void saveUser(@NotNull(message = "{validate.authenticate.saveUser}") @Valid UserDetail userDetail, String newPassword) {
 		if (!StringUtils.isEmpty(newPassword)) {
 			ShaPasswordEncoder shaPasswordEncoder = new ShaPasswordEncoder(256);
-			shaPasswordEncoder.encodePassword(newPassword, saltSource);
+			shaPasswordEncoder.encodePassword(newPassword, new ReflectionSaltSource());
 		}
 		userDetailRepository.save(userDetail);
 	}
