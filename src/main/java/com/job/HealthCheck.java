@@ -6,6 +6,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HealthCheck {
+	@RequestMapping("/arbeit/hello")
+	public ModelAndView Check() {
+		return new ModelAndView("healthCheck");
+	}
+
 	@RequestMapping("/hello")
 	public ModelAndView healthCheck() {
 		return new ModelAndView("healthCheck");

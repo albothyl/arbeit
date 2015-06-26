@@ -53,7 +53,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/hello/**").anonymous().anyRequest().authenticated()
 				.antMatchers("/session/list").hasAuthority("VIEW_USER_SESSIONS").anyRequest().authenticated() //세션에 있는건 권한체크없이 바로 통과인데..나중에 좀 살펴볼것.
 				.antMatchers(actuatorAdminEndpoints()).access("hasRole('ADMIN')")
-				.antMatchers(actuatorUserAdminEndpoints()).access("hasRole('USER')")
+				.antMatchers(actuatorUserEndpoints()).access("hasRole('USER')")
 			.and().formLogin()
 				.loginPage("/member/loginForm").failureUrl("/login?loginFailed")
 				.defaultSuccessUrl("/hello")
@@ -76,7 +76,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new String[]{"/admin/**"};
 	}
 
-	private String[] actuatorUserAdminEndpoints() {
+	private String[] actuatorUserEndpoints() {
 		return new String[]{"/arbeit/**"};
 	}
 }
