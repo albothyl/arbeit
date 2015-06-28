@@ -25,10 +25,9 @@ class JpaBasicGroovyTest extends Specification {
         setup:
         def MemberEntity member = new MemberEntity()
         member.setEmail("testEmail_2@test.com")
-        member.setPassword("testPassword_2")
         member.setName("testName_2")
         member.setNickName("testNickName_2")
-        member.setGrade(MemberGrade.GOLD)
+        member.setMemberGrade(MemberGrade.GOLD)
         member.setUpdatedAt(new DateTime())
         member.setRegistedAt(new DateTime())
 
