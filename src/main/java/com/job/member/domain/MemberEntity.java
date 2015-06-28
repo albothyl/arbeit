@@ -1,15 +1,13 @@
 package com.job.member.domain;
 
-import javax.persistence.*;
-
+import com.job.member.MemberGrade;
 import lombok.*;
-
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import com.job.member.MemberGrade;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -27,7 +25,6 @@ public class MemberEntity {
 	private String name;
 	private String nickName;
 	@Enumerated(EnumType.STRING)
-	@Column(name = "GRADE")
 	private MemberGrade memberGrade;
 	@LastModifiedDate
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
