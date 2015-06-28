@@ -14,3 +14,5 @@ CREATE TABLE `arbeit`.`user` (
   PRIMARY KEY (`email`),
   UNIQUE KEY `memberId_UNIQUE` (`memberId`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT = 'spring security에서 사용하는 사용자정보관리 테이블';
+
+ALTER TABLE `arbeit`.`member` DROP COLUMN `password`;

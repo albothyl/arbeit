@@ -56,7 +56,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(actuatorUserEndpoints()).access("hasRole('USER')")
 			.and().formLogin()
 				.loginPage("/member/loginForm").failureUrl("/login?loginFailed")
-				.defaultSuccessUrl("/hello")
+				.defaultSuccessUrl("/loginSuccess")
 				.usernameParameter("username")
 				.passwordParameter("password")
 				.permitAll()

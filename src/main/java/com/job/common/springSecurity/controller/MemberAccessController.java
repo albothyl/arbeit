@@ -9,7 +9,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class MemberAccessController {
 
 	@RequestMapping("/loginForm")
-	public ModelAndView Login() {
+	public ModelAndView loginForm() {
 		return new ModelAndView("/member/loginForm");
+	}
+
+	@RequestMapping("/loginSuccess")
+	public ModelAndView loginSuccess() {
+		return new ModelAndView("/member/loginSuccess");
 	}
 }
