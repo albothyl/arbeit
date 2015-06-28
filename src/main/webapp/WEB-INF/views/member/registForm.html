@@ -1,12 +1,40 @@
 <!doctype html>
-<html ng-app="AMail">
+<html lang='ko' ng-app>
 <head>
-	<!--script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script-->
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-	<script src='/controllers.js'></script>
+	<!--<script src='/controllers.js'></script>-->
+
+	<style type="text/css">
+		.ng-invalid {
+			border-color: red;
+		}
+	</style>
 </head>
 <body>
-<h1>A-Mail</h1>
-<div ng-view></div>
+<h1>가입하기</h1>
+<form name='addUserForm' ng-controller="AddUserController">
+	<div ng-show='message'>{{message}}</div>
+	<div>이름: <input name='firstName' ng-model='user.first' required/></div>
+	<div>성씨: <input ng-model='user.last' required /></div>
+	<div>이메일: <input type='email' ng-model='user.email' required/></div>
+	<div>나이: <input type='number' ng-model='user.age' ng-maxlength='3' ng-min='1'/></div>
+	<div><button ng-click='addUser()' ng-disabled='!addUserForm.$valid'>전송</button></div>
+</form>
+
+<script>
+	function AddUserController($scope, $http) {
+		$scope.message = '';
+		$scope.addUser = function() {
+			// 가입된 사용자를 데이터베이스에 실제로 저장하는 코드를
+			// 여기에 스스로 작성해보자.
+			$http.get('/products').success(function(data, status, headers, config) {
+				$scope.user = data;
+			});
+
+			$scope.message = '감사합니다, ' + $scope.user.first + '님. 가입을 축하립드니다!';
+		};
+	}
+</script>
+
 </body>
 </html>
