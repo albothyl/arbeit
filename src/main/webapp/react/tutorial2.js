@@ -1,22 +1,28 @@
-/**
- * Created by Administrator on 2015-07-04.
- */
 var CommentList = React.createClass({
 	render: function() {
 		return (
 			<div className="commentList">
-				안녕! 난 댓글목록이야.
+				<Comment author="Pete Hunt">댓글입니다</Comment>
+				<Comment author="Jordan Walke">*또 다른* 댓글입니다</Comment>
 			</div>
 		);
 	}
 });
 
-var CommentForm = React.createClass({
+var Comment = React.createClass({
 	render: function() {
 		return (
-			<div className="commentForm">
-				안녕! 난 댓글 폼이야.
+			<div className="comment">
+				<h2 className="commentAuthor">
+					{this.props.author}
+				</h2>
+				{this.props.children}
 			</div>
 		);
 	}
 });
+
+React.render(
+	<CommentList />,
+	document.getElementById('content')
+);
