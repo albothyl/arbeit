@@ -1,3 +1,5 @@
+//각 컴포넌트를 만들고 이를 조합하는 예제
+
 var CommentList = React.createClass({
 	render: function() {
 		return (

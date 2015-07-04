@@ -1,3 +1,5 @@
+//json데이터를 설정하고 이를 상위컴포넌트에 설정하고, 하위컴포넌트에서 사용하는 예제
+
 var data = [
 	{author: "Pete Hunt", text: "댓글입니다"},
 	{author: "Jordan Walke", text: "*또 다른* 댓글입니다"}

@@ -1,3 +1,5 @@
+//튜토리얼4 개선
+
 var CommentForm = React.createClass({
 	render: function() {
 		return (

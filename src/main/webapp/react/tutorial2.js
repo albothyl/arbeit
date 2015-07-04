@@ -1,3 +1,5 @@
+//상위 컴포넌트에서 데이터를 설정하고, 이를 하위 컴포넌트에서 사용하는 예제
+
 var CommentList = React.createClass({
 	render: function() {
 		return (

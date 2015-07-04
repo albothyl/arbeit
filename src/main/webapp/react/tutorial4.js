@@ -1,7 +1,4 @@
-var data = [
-	{author: "Pete Hunt", text: "댓글입니다"},
-	{author: "Jordan Walke", text: "*또 다른* 댓글입니다"}
-];
+//서버로부터 데이터를 받아서 하위컴포넌트로 전달하여 사용하는 예제
 
 var CommentForm = React.createClass({
 	render: function() {
@@ -51,7 +48,7 @@ var CommentBox = React.createClass({
 		return (
 			<div className="commentBox">
 				<h1>댓글</h1>
-				<CommentList data={this.props.data} />
+				<CommentList data={this.state.data} />
 				<CommentForm />
 			</div>
 		);
