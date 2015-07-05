@@ -50,10 +50,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity security) throws Exception {
 		security
 			.authorizeRequests()
-				.antMatchers("/hello/**").anonymous().anyRequest().authenticated()
-				.antMatchers("/session/list").hasAuthority("VIEW_USER_SESSIONS").anyRequest().authenticated()
-				.antMatchers(actuatorAdminEndpoints()).access("hasRole('ADMIN')")
-				.antMatchers(actuatorUserEndpoints()).access("hasRole('USER')")
+				.antMatchers("/hello/**").permitAll()//.anonymous().anyRequest().authenticated()
+//				.antMatchers("/session/list").hasAuthority("VIEW_USER_SESSIONS").anyRequest().authenticated()
+				.antMatchers(actuatorAdminEndpoints()).hasAuthority("ADMIN")//.access("hasRole('ADMIN')")
+				.antMatchers(actuatorUserEndpoints()).hasAuthority("USER")//.access("hasRole('USER')")
+				.anyRequest().authenticated()
 			.and().formLogin()
 				.loginPage("/member/loginForm").failureUrl("/login?loginFailed")
 				.defaultSuccessUrl("/hello")
