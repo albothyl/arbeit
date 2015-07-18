@@ -21,7 +21,7 @@ public class ReactController {
 
 	@RequestMapping(value = "/hello/testForm")
 	public ModelAndView reactPracticeForm() {
-		return new ModelAndView("../../react/testForm");
+		return new ModelAndView("/member/testForm");
 	}
 
 	@RequestMapping(value = "/hello/getData")

@@ -15,6 +15,8 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 
 import com.job.common.springSecurity.service.AuthenticationService;
 
+import javax.servlet.Filter;
+
 @Configuration
 @EnableWebMvcSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -43,18 +45,21 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity security) {
-		security.ignoring().antMatchers("/resource/**", "/favicon.ico");
+		security
+			.ignoring()
+				.antMatchers("/resource/**", "/favicon.ico")
+				.antMatchers("/application/**");
 	}
 
 	@Override
 	protected void configure(HttpSecurity security) throws Exception {
 		security
 			.authorizeRequests()
-				.antMatchers("/hello/**").permitAll()//.anonymous().anyRequest().authenticated()
-				.antMatchers("/react/**").permitAll()
-//				.antMatchers("/session/list").hasAuthority("VIEW_USER_SESSIONS").anyRequest().authenticated()
-				.antMatchers(actuatorAdminEndpoints()).hasAuthority("ADMIN")//.access("hasRole('ADMIN')")
-				.antMatchers(actuatorUserEndpoints()).hasAuthority("USER")//.access("hasRole('USER')")
+				.antMatchers("/hello/**").permitAll()
+				.antMatchers("/login/**").permitAll()
+				.antMatchers("/session/list").hasAuthority("VIEW_USER_SESSIONS").anyRequest().authenticated()
+				.antMatchers(actuatorAdminEndpoints()).hasAuthority("ADMIN")
+				.antMatchers(actuatorUserEndpoints()).hasAuthority("USER")
 				.anyRequest().authenticated()
 			.and().formLogin()
 				.loginPage("/member/loginForm").failureUrl("/login?loginFailed")
@@ -72,6 +77,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 				.sessionRegistry(this.sessionRegistryImpl())
 			.and().and().csrf()
 				.disable();
+		security
+			.addFilter(restFilter());
+	}
+
+	@Bean
+	private Filter restFilter() {
+		return null;
 	}
 
 	private String[] actuatorAdminEndpoints() {

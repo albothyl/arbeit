@@ -22,11 +22,7 @@ public class DefaultAuthenticationService implements AuthenticationService {
 
 	@Override
 	public UserDetail loadUserByUsername(String email) {
-		UserDetail userDetail = userDetailRepository.getByEmail(email);
-		userDetail.getAuthorities().size();
-		userDetail.getPassword();
-
-		return userDetail;
+		return userDetailRepository.getByEmail(email);
 	}
 
 	@Override

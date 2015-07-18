@@ -35,4 +35,9 @@ public class DispatcherConfig extends WebMvcConfigurerAdapter {
 		resource.setDefaultEncoding("UTF-8");
 		return resource;
 	}
+
+	@Override
+	public void addViewControllers(org.springframework.web.servlet.config.annotation.ViewControllerRegistry registry) {
+		registry.addViewController("/").setViewName("../../react/testForm");
+	}
 }
