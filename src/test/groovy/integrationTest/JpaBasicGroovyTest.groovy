@@ -11,6 +11,7 @@ import org.springframework.boot.test.SpringApplicationContextLoader
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.web.WebAppConfiguration
 import org.springframework.util.Assert
+import spock.lang.Ignore
 import spock.lang.Specification
 
 @IntegrationTest
@@ -21,6 +22,7 @@ class JpaBasicGroovyTest extends Specification {
     @Autowired
     MemberRepository memberRepository
 
+    @Ignore
     def "JPA INSERT, DELETE TEST"() {
         setup:
         def MemberEntity member = new MemberEntity()
@@ -40,6 +42,7 @@ class JpaBasicGroovyTest extends Specification {
         memberRepository.delete(resultMemberSaved.getId())
     }
 
+    @Ignore
     def "select test"() {
         setup:
         def String userEmail = "jjhwqqq@naver.com"
